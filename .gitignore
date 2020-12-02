@@ -4,3 +4,4 @@ runner
 compile_commands.json
 build/
 input/
+.cache

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "util/Loader.hpp"
 #include <iostream>
 #include <string>
