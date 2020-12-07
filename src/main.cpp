@@ -6,6 +6,7 @@
 #include "Day4.hpp"
 #include "Day5.hpp"
 #include "Day6.hpp"
+#include "Day7.hpp"
 
 int main(int argc, char* argv[]) {
     switch (argv[1][0]) {
@@ -26,6 +27,9 @@ int main(int argc, char* argv[]) {
     } break;
     case '6': {
         aoc::Day6{}.run();
+    }
+    case '7': {
+        aoc::Day7{}.run();
     }
     }
 }

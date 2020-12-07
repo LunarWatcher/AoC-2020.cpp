@@ -1,3 +1,6 @@
+tmp
+*.breakpoints
+*.breakpoint
 *.o
 runner
 .sconsign.dblite
