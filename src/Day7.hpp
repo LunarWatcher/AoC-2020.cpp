@@ -15,10 +15,10 @@ namespace aoc {
 class Day7 {
 private:
     std::vector<std::string> rawData = loadFile("day7.txt");
-    std::map<std::string, std::vector<std::pair<int, std::string>>> reverseTree;
 
 public:
     void A() {
+        std::map<std::string, std::vector<std::string>> reverseTree;
         std::regex splitRegex("( bags contain |, )");
         int canContainShiny = 0;
 
@@ -44,7 +44,7 @@ public:
                     if (rawBag.find("bags") != std::string::npos)
                         ++backOffset;
                     std::string parsedBagName = rawBag.substr(2, rawBag.size() - 2 - backOffset);
-                    reverseTree[parsedBagName].push_back({rawBag.at(0) - '0', rootBag});
+                    reverseTree[parsedBagName].push_back(rootBag);
                 }
             }
         } // }}}
@@ -57,7 +57,7 @@ public:
         do {
             auto& tmp = reverseTree[root];
             if (tmp.size()) {
-                for (auto& [_, bag] : tmp) {
+                for (auto& bag : tmp) {
                     if (std::find(exhausted.begin(), exhausted.end(), bag) != exhausted.end())
                         continue;
                     queue.push(bag);
@@ -73,24 +73,52 @@ public:
 
     }
 
-    int recB(std::string& root) {
-        if (!reverseTree.contains(root)) return 0;
-        auto& children = reverseTree.at(root);
+    int recursiveB(const std::string& root, const std::map<std::string, std::vector<std::pair<int, std::string>>>& tree) {
+        if (!tree.contains(root)) return 0;
         int sum = 0;
 
+        auto& children = tree.at(root);
         for (auto& child : children) {
             sum += child.first;
-            sum += child.first * recB(child.second);
+            sum += child.first * recursiveB(child.second, tree);
         }
         return sum;
     }
 
     void B() {
-        int count = 0;
-        throw std::runtime_error("FIXME");
+        std::map<std::string, std::vector<std::pair<int, std::string>>> tree;
+        std::regex splitRegex("( bags contain |, )");
+
+
+        for (const std::string& rawLine : rawData) { // {{{
+            auto line = rawLine.substr(0, rawLine.size() - 1);
+
+            std::sregex_token_iterator it(line.begin(), line.end(), splitRegex, -1);
+            std::sregex_token_iterator end;
+            std::string rootBag;
+            std::vector<std::string> contained;
+
+            for (; it != end; ++it) {
+                if (rootBag == "") {
+                    rootBag = *it;
+                    continue;
+                }
+                contained.push_back(*it);
+            }
+
+            if (line.find("no other bags") == std::string::npos) {
+                for (auto& rawBag : contained) {
+                    int backOffset = 4;
+                    if (rawBag.find("bags") != std::string::npos)
+                        ++backOffset;
+                    std::string parsedBagName = rawBag.substr(2, rawBag.size() - 2 - backOffset);
+                    tree[rootBag].push_back({rawBag.at(0) - '0', parsedBagName});
+                }
+            }
+        } // }}}
+
         std::string root = "shiny gold";
-        count = recB(root);
-        std::cout << "Part 2: " << count << std::endl;
+        std::cout << "Part 2: " << recursiveB(root, tree) << std::endl;
     }
 
     void run() {
