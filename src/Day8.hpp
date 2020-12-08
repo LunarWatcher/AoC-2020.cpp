@@ -11,10 +11,11 @@ namespace aoc {
 class Day8 {
 private:
     std::vector<std::string> program = loadFile("day8.txt");
-    int runProgram(const std::vector<std::string>& program) {
+    std::pair<int, bool> runProgram(const std::vector<std::string>& program) {
         int ptr = 0;
         int accumulator = 0;
         std::vector<int> exhausted;
+        bool safe = true;
         while (true) {
             exhausted.push_back(ptr);
             auto& line = program.at(ptr);
@@ -37,37 +38,43 @@ private:
                 break;
             }
             if (std::find(exhausted.begin(), exhausted.end(), ptr) != exhausted.end()) {
+                safe = false;
                 break;
             }
+            if (ptr >= program.size()) break;
         }
-        return accumulator;
+        return {accumulator, safe};
     }
 
 public:
     void part1() {
-        std::cout << "Part 1: " << runProgram(program) << std::endl;
+        std::cout << "Part 1: " << runProgram(program).first << std::endl;
     }
 
     void part2() {
-        throw std::runtime_error("Fuck intcode");
-        std::vector<std::string> c{program};
-        for (size_t i = c.size() - 1; i >= 0; --i) {
-            if (c.at(i).starts_with("jmp")) {
-                auto line = c.at(i);
-                std::stringstream stream(line);
-                std::string value;
-                std::getline(stream, value, ' ');
+        for (int i = 0; i < 2; ++i) {
+            std::string source, target;
+            if (i == 1) { source = "nop"; target="jmp"; }
+            else { source = "jmp"; target = "nop"; }
 
-                value = "";
-                std::getline(stream, value, ' ');
-                int iValue = std::stoi(value);
-                if (i + iValue + 1 < c.size() && c[i + iValue + 1].starts_with("jmp")) {
-                    c[i] = std::string("nop ") + value;
-                    break;
+            for (size_t j = 0; j < program.size(); ++j) {
+                if (program.at(j).starts_with(source)) {
+                    std::vector<std::string> copy(program);
+                    auto old = copy.at(j);
+                    std::stringstream ss(old);
+                    std::string add;
+                    std::getline(ss, add, ' ');
+                    add = "";
+                    std::getline(ss, add, ' ');
+                    copy.at(j) = target + " " + add;
+                    auto [accum, safe] = runProgram(copy);
+                    if (safe) {
+                        std::cout << "Part 2: " << accum << std::endl;
+                        return;
+                    }
                 }
             }
         }
-        std::cout << "Part 2: " << runProgram(c) << std::endl;
     }
 
     void run() {
