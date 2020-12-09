@@ -43,15 +43,12 @@ public:
     }
 
     void part2() {
-        throw std::runtime_error("Broken (edge cases");
-        std::vector<long long> clone(numbers.begin(), numbers.end());
-        clone.erase(clone.begin() + idx);
         auto target = numbers.at(idx);
         for (auto i = 0; i < numbers.size() - 202; ++i) {
             for (auto len = 2; len <= numbers.size() - 200 - i; ++len) {
                 std::vector<long long> vec(numbers.begin() + i, numbers.begin() + i + len);
 
-                long long sum = std::accumulate(vec.begin(), vec.end(), 0, std::plus<long long>());
+                long long sum = std::accumulate(vec.begin(), vec.end(), (long long) 0, std::plus<long long>());
                 if (sum == target) {
                     std::cout << "Part 2: " << (*std::min_element(vec.begin(), vec.end()) 
                             + *std::max_element(vec.begin(), vec.end())) << std::endl;
