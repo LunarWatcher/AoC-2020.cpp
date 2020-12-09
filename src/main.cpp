@@ -11,33 +11,25 @@
 #include "Day9.hpp"
 
 int main(int argc, char* argv[]) {
-    switch (argv[1][0]) {
-    case '1': {
+    std::string input(argv[1]);
+    if (input == "1") {
         aoc::Day1{}.run();
-    } break;
-    case '2': {
+    } else if (input == "2") {
         aoc::Day2{}.run();
-    } break;
-    case '3': {
+    } else if (input == "3") {
         aoc::Day3{}.run();
-    } break;
-    case '4': {
+    } else if (input == "4") {
         aoc::Day4{}.run();
-    } break;
-    case '5': {
+    } else if (input == "5") {
         aoc::Day5{}.run();
-    } break;
-    case '6': {
+    } else if (input == "6") {
         aoc::Day6{}.run();
-    }
-    case '7': {
+    } else if (input == "7") {
         aoc::Day7{}.run();
-    }
-    case '8': {
+    } else if (input == "8") {
         aoc::Day8{}.run();
-    }
-    case '9': {
+    } else if (input == "9") {
         aoc::Day9{}.run();
     }
-    }
+
 }
