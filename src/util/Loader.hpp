@@ -9,6 +9,9 @@
 
 namespace aoc {
 
+int sastoi(const std::string& input) { return std::stoi(input); }
+long long sastoll(const std::string& input) { return std::stoll(input); }
+
 std::vector<std::string> loadFile(const std::string& filename) {
     std::ifstream stream("input/" + filename);
     if (!stream) {
