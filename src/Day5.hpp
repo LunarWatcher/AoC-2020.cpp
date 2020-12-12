@@ -66,7 +66,7 @@ public:
         }
         std::sort(ids.begin(), ids.end());
 
-        for (int i = 0; i < ids.size() - 1; i++) {
+        for (size_t i = 0; i < ids.size() - 1; i++) {
             if (ids.at(i) != ids.at(i + 1) - 1) {
                 return ids.at(i) + 1;
             }

@@ -17,7 +17,7 @@ public:
 
         std::map<char, int> questions;
         int peeps = 0;
-        for (int i = 0; i < rawData.size(); ++i) {
+        for (size_t i = 0; i < rawData.size(); ++i) {
             auto& line = rawData.at(i);
 
             if (line.size()) {

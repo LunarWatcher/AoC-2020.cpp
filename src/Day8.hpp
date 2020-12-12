@@ -12,7 +12,7 @@ class Day8 {
 private:
     std::vector<std::string> program = loadFile("day8.txt");
     std::pair<int, bool> runProgram(const std::vector<std::string>& program) {
-        int ptr = 0;
+        size_t ptr = 0;
         int accumulator = 0;
         std::vector<int> exhausted;
         bool safe = true;

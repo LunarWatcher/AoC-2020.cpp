@@ -14,8 +14,8 @@ private:
 public:
 
     long long part1() {
-        for (auto i = 0; i < input.size() - 1; ++i) {
-            for (auto j = i + 1; j < input.size(); ++j) {
+        for (size_t i = 0; i < input.size() - 1; ++i) {
+            for (size_t j = i + 1; j < input.size(); ++j) {
                 if (input[i] + input[j] == 2020) {
                     return input[i] * input[j];
                 }
@@ -25,9 +25,9 @@ public:
     }
 
     long long part2() {
-        for (auto i = 0; i < input.size() - 2; ++i) {
-            for (auto j = i + 1; j < input.size() - 1; ++j) {
-                for (auto k = j + 1; k < input.size(); ++k) {
+        for (size_t i = 0; i < input.size() - 2; ++i) {
+            for (size_t j = i + 1; j < input.size() - 1; ++j) {
+                for (size_t k = j + 1; k < input.size(); ++k) {
                     if (input[i] + input[k] + input[j] == 2020) {
                         return input[i] * input[j] * input[k];
                     }

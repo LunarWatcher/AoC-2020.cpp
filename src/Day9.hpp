@@ -44,8 +44,8 @@ public:
 
     void part2() {
         auto target = numbers.at(idx);
-        for (auto i = 0; i < numbers.size() - 202; ++i) {
-            for (auto len = 2; len <= numbers.size() - 200 - i; ++len) {
+        for (size_t i = 0; i < numbers.size() - 202; ++i) {
+            for (size_t len = 2; len <= numbers.size() - 200 - i; ++len) {
                 std::vector<long long> vec(numbers.begin() + i, numbers.begin() + i + len);
 
                 long long sum = std::accumulate(vec.begin(), vec.end(), (long long) 0, std::plus<long long>());
