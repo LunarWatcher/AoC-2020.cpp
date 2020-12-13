@@ -1,6 +1,7 @@
 #pragma once
 
 #include "util/Loader.hpp"
+#include "util/Operators.hpp"
 #include <iostream>
 #include <math.h>
 #include <string>
@@ -51,10 +52,10 @@ public:
             auto _dir = dir;
             switch (_dir) {
             case Day12Dir::LEFT:
-                direction = ((direction + (value / 90)) % 4 + 4) % 4;
+                direction = (direction + (value / 90)) mod 4;
                 break;
             case Day12Dir::RIGHT:
-                direction = ((direction - (value / 90)) % 4 + 4) % 4;
+                direction = (direction - (value / 90)) mod 4;
                 break;
             case Day12Dir::FORWARD:
                 _dir = static_cast<Day12Dir>(direction);
