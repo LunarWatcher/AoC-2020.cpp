@@ -53,9 +53,18 @@ public:
             std::string andMask = std::regex_replace(mask, std::regex("X"), "1");
 
             for (auto& [addr, num] : nums) {
+                /**
+                 * I have no idea why this doesn't work. It should work.
+                 * It passes the test case, but still fails on the real input. Can't find the reason why.
+                 * I've checked the return types (although with the answer being in the range of 1e13,
+                 * that shouldn't be a problem), sanity-checked the logic... I can't find whatever's wrong.
+                 *
+                 * Might've been able to find it if I had more tests, but with just one test case and bitwise
+                 * operations being something I generally don't understand, iDunno.
+                 * I tried. I'll just use one of my stars from last year to get the vacation :')
+                 */ 
                 auto cacheNum = num;
-                cacheNum |= convert(orMask);
-                cacheNum &= convert(andMask);
+                cacheNum = (cacheNum | convert(orMask)) & convert(andMask);
                 executed[addr] = cacheNum;
             }
         }
