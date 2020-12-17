@@ -15,6 +15,7 @@
 #include "Day13.hpp"
 #include "Day14.hpp"
 #include "Day15.hpp"
+#include "Day16.hpp"
 
 int main(int argc, char* argv[]) {
     std::string input(argv[1]);
@@ -48,6 +49,8 @@ int main(int argc, char* argv[]) {
         aoc::Day14{}.run();
     } else if (input == "15") {
         aoc::Day15{}.run();
+    } else if (input == "16") {
+        aoc::Day16{}.run();
     }
 
 }
